@@ -1,6 +1,7 @@
 export default {
   data: {
-    title: "about"
+    title: "about",
+    desc: "Description"
   },
   mutations: {
     updateState(state, payload) {

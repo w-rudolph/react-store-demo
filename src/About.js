@@ -8,12 +8,17 @@ store.registerModule("about", aboutModel);
 const handleClick = () => {
   store.dispatch("about/test", { title: "About" + Math.random() });
 };
+const handleClick2 = () => {
+  store.commit('about/updateState', { desc: "Description" + Math.random() });
+};
 const About = ({ about, children }) => {
   return (
     <div>
       <h1>About</h1>
       <div>Title: {about.title}</div>
+      <div>Desc: {about.desc}</div>
       <button onClick={handleClick}>Change Title</button>
+      <button onClick={handleClick2}>Change Desc</button>
       <ul>
         <li>
           <Link to="/">App</Link>
