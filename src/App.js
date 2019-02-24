@@ -1,28 +1,31 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { store } from "./store";
+import appModel from "./model/app.model";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
-
-export default App;
+store.registerModule("app", appModel);
+const handleClick = () => {
+  store.dispatch("app/test", { title: 'APP' + Math.random() });
+}; 
+const App = ({ app, children }) => {
+  return (
+    <div>
+      <h1>App</h1>
+      <div>Title: {app.title}</div>
+      <button onClick={handleClick}>Change Title</button>
+      <ul>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+      </ul>
+      {children}
+    </div>
+  );
+};
+const mapStateToProps = state => {
+  return {
+    app: state.app
+  };
+};
+export default connect(mapStateToProps)(App);
